@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- VUE -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.js' integrity='sha512-w39cIBZHEf0ac8RERRGs+aTrQbBIpb+0qGsMCKfwvJSmN6YV8brsbYN1a/nTmuQgfrGyg7p3WI4HRu1rs3rLvw==' crossorigin='anonymous'></script>
+
+  <!-- BOOTSTRAP -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css' integrity='sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==' crossorigin='anonymous'/>
+
+
+  <title>PokéVue</title>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <ul>
+        <li v-for="(pokemon, index) in pokemons" @click="showPokemon(index)">
+          <img :src="pokemon.sprites.front_default" /> 
+          <span>
+            {{pokemon.name}}
+          </span>
+        </li>
+      </ul>
+
+
+      <div v-if="activeIndex != null">
+        <img :src="pokemons[activeIndex].sprites.front_default">
+        <h3>
+          {{pokemons[activeIndex].name}} #{{pokemons[activeIndex].id}}
+        </h3>
+        <button @click="generatePokemon()">Generate random version</button>
+        <h4>Stats</h4>
+        <ul>
+          <li v-for="stat in pokemons[activeIndex].stats">
+            {{stat.name}} : <b>{{ stat.base_stat}}</b>
+          </li>
+        </ul>
+      </div>
+      
+      
+      <div v-if="generatedPokemon != null">
+        <img :src="generatedPokemon.sprites.front_default">
+        <h3>
+          {{generatedPokemon.name}} #{{generatedPokemon.id}}
+        </h3>
+        <h4>Stats</h4>
+        <ul>
+          <li v-for="stat in generatedPokemon.stats">
+            {{stat.name}} : <b>{{ stat.base_stat}}</b>
+          </li>
+        </ul>
+        <h4>Moves</h4>
+        <ul>
+          <li v-for="move in generatedPokemon.moves">
+            {{move}}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
